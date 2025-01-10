@@ -5,11 +5,49 @@ class Personaje:
     inteligencia = 0
     defensa = 0
     vida = 0
+    def __init__(self,nombre, fuerza, inteligencia, defensa, vida):
+        self.nombre = nombre
+        self.fuerza = fuerza
+        self.inteligencia = inteligencia
+        self.defensa = defensa
+        self.vida = vida
+        
+    def atributos(self):
+        print(self.nombre)
+        print("-Fuerza:",self.fuerza)
+        print("-Inteligencia:",self.inteligencia)
+        print("-Defensa:",self.defensa)
+        print("-Vida:",self.vida)
+        
+    def subir_nivel(self, fuerza, inteligencia, defensa):
+        self.fuerza = self.fuerza + fuerza
+        self.inteligencia = self.inteligencia + inteligencia
+        self.defensa = self.defensa + defensa    
+    
+    def esta_vivo(self):
+        return self.vida > 0
+
+    def morir(self):
+        self.vida = 0
+        print(self.nombre, "ha muerto")
+        
+    #Daño que recibe nuestro personaje
+    def daño(self, enemigo):
+        return self.fuerza - enemigo.defensa    
+        
+    def atacar(self, enemigo):
+        daño = self.daño(enemigo)
+        enemigo.vida = enemigo.vida - daño
+        print(self.nombre, "ha realizado", daño, "puntos de daño a", enemigo.nombre)
+        if enemigo.esta_vivo():
+            print("Vida de", enemigo.nombre, "es", enemigo.vida)
+        else:
+            enemigo.morir()        
+        
 #Variable del constructor vacío de la clase
-mi_personaje = Personaje()
-#Modificando valores de atributos de la clase
-mi_personaje.nombre = "Mr. Beast"
-mi_personaje.fuerza = 100
-#Imprimir variables concatenando texto y el valor de la variable
-print("El nombre del jugador es", mi_personaje.nombre)
-print("La fuerza del jugador es", mi_personaje.fuerza)
+mi_personaje = Personaje("Bruno Mars",170, 1, 40, 100)
+mi_enemigo = Personaje("Michael Jackson", 60, 5, 50, 100)
+mi_personaje.atacar(mi_enemigo)
+mi_enemigo.atributos()
+
+
