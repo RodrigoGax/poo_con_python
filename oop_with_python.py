@@ -42,12 +42,57 @@ class Personaje:
         if enemigo.esta_vivo():
             print("Vida de", enemigo.nombre, "es", enemigo.vida)
         else:
-            enemigo.morir()        
+            enemigo.morir()            
+
+#Creando clase "Guerrero" que hereda de su clase padre "Personaje"
+class Guerrero(Personaje):
+    #Para agregar un atributo más como "Espada", se sobreescribe el constructor
+    def __init__(self,nombre, fuerza, inteligencia, defensa, vida, espada):
+        #Personaje.__init__(self,nombre, fuerza, inteligencia, defensa, vida)
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+        self.espada = espada
         
-#Variable del constructor vacío de la clase
-mi_personaje = Personaje("Bruno Mars",170, 1, 40, 100)
-mi_enemigo = Personaje("Michael Jackson", 60, 5, 50, 100)
-mi_personaje.atacar(mi_enemigo)
-mi_enemigo.atributos()
+    #Pedirle al usuario que escoja un arma   
+    def cambiar_arma(self):
+        opcion = int(input("Elige un arma: (1) Lanza, daño 8. (2) Espada de acero, daño 10"))
+        if opcion == 1:
+            self.espada = 8
+        elif opcion == 2:
+            self.espada = 10
+        else:
+            print("Número de arma incorrecta")
+            
+    #Sobreescribir el método para imprimir el valor de espada
+    def atributos(self):
+        super().atributos()
+        print("·Espada:", self.espada)
+    
+    #Sobreescribir el método daño para ajustar su valor respecto al uso de la espada    
+    def daño(self, enemigo):
+        return self.fuerza*self.espada - enemigo.defensa
+    
+class Mago(Personaje):
 
+    #Para agregar un atributo más como "libro", se sobreescribe el constructor
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+        self.libro = libro
 
+    #Sobreescribir el método para imprimir el valor del libro
+    def atributos(self):
+        super().atributos()
+        print("·Libro:", self.libro)
+
+    #Sobreescribir el método daño para ajustar su valor respecto al uso del libro
+    def daño(self, enemigo):
+        return self.inteligencia*self.libro - enemigo.defensa    
+
+#Creando el objeto guerrero
+#ragnar = Guerrero()
+jackson = Personaje("Michael Jackson",20,15,10,100)
+ragnar = Guerrero("Ragnar Lothbrok",20,15,10,100,5)
+merlin = Mago("Merlin", 20,15,10,100,5)
+#Imprimir atributos 
+jackson.atributos()
+ragnar.atributos()
+merlin.atributos()
