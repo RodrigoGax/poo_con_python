@@ -1,10 +1,4 @@
 class Personaje:
-    #Atributos de la clase
-    nombre = 'Default'
-    fuerza = 0
-    inteligencia = 0
-    defensa = 0
-    vida = 0
     def __init__(self,nombre, fuerza, inteligencia, defensa, vida):
         self.nombre = nombre
         self.fuerza = fuerza
