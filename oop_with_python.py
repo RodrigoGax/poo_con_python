@@ -1,17 +1,20 @@
 class Personaje:
-    def __init__(self,nombre, fuerza, inteligencia, defensa, vida):
+    def __init__(self,nombre, fuerza, inteligencia, defensa, vida, inventario):
         self.nombre = nombre
         self.fuerza = fuerza
         self.inteligencia = inteligencia
         self.defensa = defensa
         self.vida = vida
-        
+        #Objeto que contiene arreglo
+        self.inventario = inventario if inventario else []  # Si no se da, inicia vacío
+                
     def atributos(self):
         print(self.nombre)
         print("-Fuerza:",self.fuerza)
         print("-Inteligencia:",self.inteligencia)
         print("-Defensa:",self.defensa)
         print("-Vida:",self.vida)
+        print("-Inventario:",self.inventario)
         
     def subir_nivel(self, fuerza, inteligencia, defensa):
         self.fuerza = self.fuerza + fuerza
@@ -41,9 +44,9 @@ class Personaje:
 #Creando clase "Guerrero" que hereda de su clase padre "Personaje"
 class Guerrero(Personaje):
     #Para agregar un atributo más como "Espada", se sobreescribe el constructor
-    def __init__(self,nombre, fuerza, inteligencia, defensa, vida, espada):
+    def __init__(self,nombre, fuerza, inteligencia, defensa, vida,inventario, espada):
         #Personaje.__init__(self,nombre, fuerza, inteligencia, defensa, vida)
-        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida, inventario)
         self.espada = espada
         
     #Pedirle al usuario que escoja un arma   
@@ -59,7 +62,7 @@ class Guerrero(Personaje):
     #Sobreescribir el método para imprimir el valor de espada
     def atributos(self):
         super().atributos()
-        print("·Espada:", self.espada)
+        print("-Espada:", self.espada)
     
     #Sobreescribir el método daño para ajustar su valor respecto al uso de la espada    
     def daño(self, enemigo):
@@ -68,14 +71,14 @@ class Guerrero(Personaje):
 class Mago(Personaje):
 
     #Para agregar un atributo más como "libro", se sobreescribe el constructor
-    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, libro):
-        super().__init__(nombre, fuerza, inteligencia, defensa, vida)
+    def __init__(self, nombre, fuerza, inteligencia, defensa, vida, inventario, libro):
+        super().__init__(nombre, fuerza, inteligencia, defensa, vida, inventario)
         self.libro = libro
 
     #Sobreescribir el método para imprimir el valor del libro
     def atributos(self):
         super().atributos()
-        print("·Libro:", self.libro)
+        print("-Libro:", self.libro)
 
     #Sobreescribir el método daño para ajustar su valor respecto al uso del libro
     def daño(self, enemigo):
@@ -101,8 +104,8 @@ class Mago(Personaje):
 # ragnar.atributos()
 # merlin.atributos()
 
-ragnar = Guerrero("Ragnar Lothbrok",20,10,4,100,4)
-merlin = Mago("Merlin", 5,15,4,100,3)
+ragnar = Guerrero("Ragnar Lothbrok",20,10,4,100,[], 4 )
+merlin = Mago("Merlin", 5,15,4,100,[], 3,)
 
 def combate(jugador_1, jugador_2):
     turno = 0
@@ -126,9 +129,10 @@ def combate(jugador_1, jugador_2):
 
 # Crear un arreglo (lista) con diferentes personajes
 personajes = [
-    Guerrero("Ragnar Lothbrok", 20, 10, 4, 100, 4),
-    Mago("Merlin", 5, 15, 4, 100, 3),
-    Personaje("Lancelot", 15, 5, 8, 80)
+    Guerrero("Ragnar Lothbrok", 20, 10, 4, 100,[], 4),
+    Mago("Merlin", 5, 15, 4, 100,[], 3,),
+    Personaje("Lancelot", 15, 5, 8, 80,[]),
+    Personaje("Poción", 5, 15, 4, 100, ["Varita", "Poción"])  # Inventario inicial
 ]
 
 # Mostrar atributos de todos los personajes en el arreglo
@@ -137,7 +141,7 @@ for p in personajes:
     p.atributos()
 
 #Agregar un elemento al arreglo
-personajes.append(Mago("Houdini", 15, 15, 4, 100, 3))
+personajes.append(Mago("Houdini", 15, 15, 4, 100, 3,[]))
 
 #Quitar un elemento del arreglo
 personajes.pop(0)
@@ -148,5 +152,3 @@ for p in personajes:
 # Calcular la suma total de fuerza
 fuerza_total = sum(p.fuerza for p in personajes)
 print(f"La fuerza total de los personajes es: {fuerza_total}")    
-
-#Objetos que contienen arreglos
