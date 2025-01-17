@@ -1,10 +1,4 @@
 class Personaje:
-    #Atributos de la clase
-    nombre = 'Default'
-    fuerza = 0
-    inteligencia = 0
-    defensa = 0
-    vida = 0
     def __init__(self,nombre, fuerza, inteligencia, defensa, vida):
         self.nombre = nombre
         self.fuerza = fuerza
@@ -42,7 +36,7 @@ class Personaje:
         if enemigo.esta_vivo():
             print("Vida de", enemigo.nombre, "es", enemigo.vida)
         else:
-            enemigo.morir()            
+            enemigo.morir()   
 
 #Creando clase "Guerrero" que hereda de su clase padre "Personaje"
 class Guerrero(Personaje):
@@ -89,20 +83,70 @@ class Mago(Personaje):
 
 #Creando el objeto guerrero
 #ragnar = Guerrero()
-jackson = Personaje("Michael Jackson",20,15,10,100)
-ragnar = Guerrero("Ragnar Lothbrok",20,15,10,100,5)
-merlin = Mago("Merlin", 20,15,10,100,5)
+# jackson = Personaje("Michael Jackson",20,15,10,100)
+# ragnar = Guerrero("Ragnar Lothbrok",20,15,10,100,5)
+# merlin = Mago("Merlin", 20,15,10,100,5)
 #Imprimir atributos 
-jackson.atributos()
-ragnar.atributos()
-merlin.atributos()
+# jackson.atributos()
+# ragnar.atributos()
+# merlin.atributos()
 
 #Ataques 
-jackson.atacar(ragnar)
-ragnar.atacar(merlin)
-merlin.atacar(jackson)
+# jackson.atacar(ragnar)
+# ragnar.atacar(merlin)
+# merlin.atacar(jackson)
 
 #Imprimir atributos después del ataque  
-jackson.atributos()
-ragnar.atributos()
-merlin.atributos()
+# jackson.atributos()
+# ragnar.atributos()
+# merlin.atributos()
+
+ragnar = Guerrero("Ragnar Lothbrok",20,10,4,100,4)
+merlin = Mago("Merlin", 5,15,4,100,3)
+
+def combate(jugador_1, jugador_2):
+    turno = 0
+    while jugador_1.esta_vivo() and jugador_2.esta_vivo():
+        print("\nTurno", turno)
+        print(">>> Acción de ", jugador_1.nombre,":", sep="")
+        jugador_1.atacar(jugador_2)
+        print(">>> Acción de ", jugador_2.nombre,":", sep="")
+        jugador_2.atacar(jugador_1)
+        turno = turno + 1
+    if jugador_1.esta_vivo():
+        print("\nHa ganado", jugador_1.nombre)
+    elif jugador_2.esta_vivo():
+        print("\nHa ganado", jugador_2.nombre)
+    else:
+        print("\nEmpate")                     
+
+# combate(ragnar,merlin)
+
+#ARREGLOS DE OBJETOS
+
+# Crear un arreglo (lista) con diferentes personajes
+personajes = [
+    Guerrero("Ragnar Lothbrok", 20, 10, 4, 100, 4),
+    Mago("Merlin", 5, 15, 4, 100, 3),
+    Personaje("Lancelot", 15, 5, 8, 80)
+]
+
+# Mostrar atributos de todos los personajes en el arreglo
+print("\nAtributos de los personajes en el arreglo:")
+for p in personajes:
+    p.atributos()
+
+#Agregar un elemento al arreglo
+personajes.append(Mago("Houdini", 15, 15, 4, 100, 3))
+
+#Quitar un elemento del arreglo
+personajes.pop(0)
+print("\nAtributos de los personajes en el arreglo:")
+for p in personajes:
+    p.atributos()
+    
+# Calcular la suma total de fuerza
+fuerza_total = sum(p.fuerza for p in personajes)
+print(f"La fuerza total de los personajes es: {fuerza_total}")    
+
+#Objetos que contienen arreglos
