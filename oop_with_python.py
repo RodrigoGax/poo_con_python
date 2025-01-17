@@ -96,3 +96,13 @@ merlin = Mago("Merlin", 20,15,10,100,5)
 jackson.atributos()
 ragnar.atributos()
 merlin.atributos()
+
+#Ataques 
+jackson.atacar(ragnar)
+ragnar.atacar(merlin)
+merlin.atacar(jackson)
+
+#Imprimir atributos después del ataque  
+jackson.atributos()
+ragnar.atributos()
+merlin.atributos()
