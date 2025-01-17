@@ -45,5 +45,4 @@ class Guerrero(Personaje):
       #Llamar a la clase padre
       super().__init__(nombre, fuerza, inteligencia, defensa, vida)
       self.espada = espada
-
-hercule
+ 
